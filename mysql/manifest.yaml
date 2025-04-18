@@ -1,0 +1,26 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: mysql
+  namespace: expense
+  labels: # replicaset labels
+    app: mysql
+    tier: db
+    project: expense
+spec:
+  # modify replicas according to your case
+  replicas: 1
+  selector:
+    matchLabels: # selector labels
+      app: mysql
+      tier: db
+      project: expense
+  template:
+    metadata:
+      app: mysql
+      tier: db
+      project: expense
+    spec:
+      containers:
+      - name: mysql
+        image: venkat5555/mysql:v1
