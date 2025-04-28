@@ -33,6 +33,13 @@ spec:
       containers:
       - name: backend
         image: venkat5555/backend:v1
+        resources:
+          requestes:
+            cpu: 100m
+            memory: 128mi
+          limits:
+            cpu: 100
+            memory: 128mi
         envFrom:
         - configMapRef:
             name: backendconfig
