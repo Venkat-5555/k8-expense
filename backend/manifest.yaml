@@ -34,7 +34,7 @@ spec:
       - name: backend
         image: venkat5555/backend:v1
         resources:
-          requestes:
+          requests:
             cpu: 100m
             memory: 128mi
           limits:
