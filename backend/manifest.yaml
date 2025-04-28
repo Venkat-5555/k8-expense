@@ -32,7 +32,7 @@ spec:
     spec:
       containers:
       - name: backend
-        image: venkat5555/backend:v1
+        image: joindevops/backend:v1
         resources:
           requests:
             cpu: 100m
