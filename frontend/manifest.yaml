@@ -39,7 +39,7 @@ metadata:
   name: frontend
   namespace: expense
 spec:
-  type: LoadBalancer
+  #type: LoadBalancer
   selector:
     app: frontend
     tier: web
@@ -49,6 +49,32 @@ spec:
     protocol: TCP
     port: 80 #service port
     targetPort: 80 # container port
-
+---
+apiVersion: autoscaling/v1
+kind: HorizontalPodAutoscaler
+metadata:
+  name: frontend
+  namespace: expense
+spec:
+  maxReplicas: 5
+  minReplicas: 1
+  scaleTargetRef:
+    apiVersion: apps/v1
+    kind: Deployment
+    name: frontend
+  targetCPUUtilizationPercentage: 10
+---
+---
+apiVersion: elbv2.k8s.aws/v1beta1
+kind: TargetGroupBinding
+metadata:
+   name: frontend
+   namespace: expense
+spec:
+  serviceRef:
+    name: frontend # route traffic to the nginx
+    port: 80
+  targetGroupARN: arn:aws:elasticloadbalancing:us-east-1:481155270892:targetgroup/expense-vpc-dev/01a88594fb686b43
+  targetType: ip
 
 
